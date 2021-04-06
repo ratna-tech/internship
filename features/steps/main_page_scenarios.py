@@ -2,7 +2,8 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 import time
 search_word = 'LATEST PRODUCTS ON SALE'
-
+CATEGORY_LIST=['ACCESSORIES','IPAD','IPHONE','MACBOOK']
+CATEGORY_LIST2=['HOME / ACCESSORIES','HOME / IPAD','HOME / IPHONE','HOME / MACBOOK']
 
 @given('Open GetTop page')
 def open_GetTop(context):
@@ -106,3 +107,11 @@ def item_added_message(context):
 @then('Click through product images')
 def click_on_next_button(context):
     context.app.products.click_on_next_image_button()
+
+@then('Verify Correct categories under Browse section is displayed')
+def verify_browse_category(context):
+ context.app.main_page.verify_browse_category(CATEGORY_LIST)
+
+@then('Click on categories under browse and verify correct page opens')
+def click_on_categories(context):
+    context.app.main_page.click_on_categories(CATEGORY_LIST2)

@@ -22,7 +22,11 @@ class Main_Page(Page):
   NUM_PROD_ON_SALE =(By.XPATH,"//div[@class='product-small box ']")
   PROD_ON_WISH_PAGE = (By,"//td[@class='product-name']//a")
   CHECK_WISHLIST_ADDED= (By.CSS_SELECTOR,'div.yith-wcwl-add-to-wishlist>div')
-
+  flocator =[SALE_PROD,QUICK_VIEW]
+  BROWSE_CATEGORY = (By.XPATH,"//div//h5")
+  BROWSE_CATEGORY2 = (By.XPATH, "//div//h5[2]")
+  CATEGORY_LIST=['Accessories','iPad','iPhone','MacBook']
+  CATEGORY_TEXT =(By.CSS_SELECTOR,'nav.woocommerce-breadcrumb')
 
   def open_main_page(self):
       self.open_page('')
@@ -104,14 +108,14 @@ class Main_Page(Page):
       self.click(*self.QUICK_VIEW_CLOSE)
 
   def hover_over(self):
-     # self.hover(*self.SALE_PROD,*self.QUICK_VIEW)
-    item_tab =self.find_element(*self.SALE_PROD)
-    actions = ActionChains(self.driver)
-    actions.move_to_element(item_tab)
-    actions.click(self.find_element(*self.QUICK_VIEW))
-    actions.perform()
-    from time import sleep
-    sleep(1)
+    self.hover(*self.flocator)
+    #item_tab =self.find_element(*self.SALE_PROD)
+    #actions = ActionChains(self.driver)
+    #actions.move_to_element(item_tab)
+    #actions.click(self.find_element(*self.QUICK_VIEW))
+    #actions.perform()
+    #from time import sleep
+    #sleep(1)
 
   def hover_over_and_click_heart_icon(self):
     item_tab =self.find_element(*self.SALE_PROD)
@@ -128,3 +132,29 @@ class Main_Page(Page):
 
   def get_prod_text_and_verify(self,search_word):
       self.verify_partial_text(search_word, *self.SALE_PROD_TEXT)
+
+  def verify_browse_category(self,CATEGORY_LIST):
+      categories= self.find_elements(*self.BROWSE_CATEGORY)
+
+      for i in range(len(CATEGORY_LIST)):
+          assert CATEGORY_LIST[i] == categories[i].text,f'Expected {CATEGORY_LIST[i]} but got{categories[i].text}'
+
+  def click_on_categories(self,CATEGORY_LIST):
+      names = []
+      LINKS = self.find_elements(*self.BROWSE_CATEGORY)
+
+      for i in range(len(LINKS)):
+       LINKS = self.find_elements(*self.BROWSE_CATEGORY)
+       LINKS[i].click()
+       page_name = self.find_element(*self.CATEGORY_TEXT)
+       names.append(page_name.text)
+       print(names)
+       self.driver.back()
+
+      for i in range(len(CATEGORY_LIST)):
+        print(names[i])
+        assert names[i] in CATEGORY_LIST, f'Expected {CATEGORY_LIST[i]} , but got {names[i]}'
+
+
+
+

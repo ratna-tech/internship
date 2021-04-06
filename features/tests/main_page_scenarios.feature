@@ -51,3 +51,10 @@ Feature: Test Scenarios for Main Page functionality
     When hover over product and click on quick view
     Then Click through product images
 
+  Scenario: User sees correct categories under Browse
+    Given Open GetTop page
+    Then Verify Correct categories under Browse section is displayed
+
+  Scenario:  User can click on categories under Browse and correct page opens
+    Given Open GetTop page
+    Then Click on categories under browse and verify correct page opens
