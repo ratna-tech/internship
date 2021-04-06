@@ -27,12 +27,18 @@ class Main_Page(Page):
   BROWSE_CATEGORY2 = (By.XPATH, "//div//h5[2]")
   CATEGORY_LIST=['Accessories','iPad','iPhone','MacBook']
   CATEGORY_TEXT =(By.CSS_SELECTOR,'nav.woocommerce-breadcrumb')
-
+  CART_ICON = (By.CSS_SELECTOR, "span.cart-icon")
+  CART_EMPTY_MESSAGE = (By.CSS_SELECTOR,'p.woocommerce-mini-cart__empty-message')
+  REMOVE_WISHLIST = (By.CSS_SELECTOR, 'a.remove')
+  EMPTY_WISHLIST = (By.CSS_SELECTOR,'td.wishlist-empty')
   def open_main_page(self):
       self.open_page('')
 
   def verify_header_text(self,search_word):
       self.verify_text(search_word,*self.HEADER_TEXT)
+
+  def open_wishlist_page(self):
+      self.open_page('my-account/wishlist/')
 
   def verify_sale_icon(self):
       sale_text=self.find_elements(*self.SALE_ICON)
@@ -156,5 +162,23 @@ class Main_Page(Page):
         assert names[i] in CATEGORY_LIST, f'Expected {CATEGORY_LIST[i]} , but got {names[i]}'
 
 
+  def hover_over_cart(self):
+      item_tab = self.find_element(*self.CART_ICON)
+      actions = ActionChains(self.driver)
+      actions.move_to_element(item_tab)
+      actions.perform()
 
+  def verify_no_prod_in_cart_message(self,message):
+      self.verify_text(message,*self.CART_EMPTY_MESSAGE)
 
+  def remove_from_wishlist(self):
+      el= self.find_elements(*self.REMOVE_WISHLIST)
+      if len(el) > 0:
+          for i in range(len(el)):
+              self.click(*self.REMOVE_WISHLIST)
+
+      from time import sleep
+      sleep(3)
+
+  def verify_noprod_added_message_wishlistpage(self,message):
+      self.verify_text(message, *self.EMPTY_WISHLIST)

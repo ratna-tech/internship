@@ -4,7 +4,8 @@ import time
 search_word = 'LATEST PRODUCTS ON SALE'
 CATEGORY_LIST=['ACCESSORIES','IPAD','IPHONE','MACBOOK']
 CATEGORY_LIST2=['HOME / ACCESSORIES','HOME / IPAD','HOME / IPHONE','HOME / MACBOOK']
-
+cart_message='No products in the cart.'
+WISHLIST_MESSAGE= 'No products added to the wishlist'
 @given('Open GetTop page')
 def open_GetTop(context):
     context.app.main_page.open_main_page()
@@ -115,3 +116,19 @@ def verify_browse_category(context):
 @then('Click on categories under browse and verify correct page opens')
 def click_on_categories(context):
     context.app.main_page.click_on_categories(CATEGORY_LIST2)
+
+@when('Hover over Carts icon')
+def hover_over_cart(context):
+    context.app.main_page.hover_over_cart()
+
+@then('verify products can be removed from wish list')
+def verify_wishlist_removed(context):
+    context.app.main_page.remove_from_wishlist()
+
+@given('Open wishlist page')
+def open_wishlist_page(context):
+    context.app.main_page.open_wishlist_page()
+
+@then('verify No products added to the wishlist message')
+def verify_noprod_added_message_wishlistpage(context):
+    context.app.main_page.verify_noprod_added_message_wishlistpage(WISHLIST_MESSAGE)

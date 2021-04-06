@@ -20,6 +20,7 @@ Feature: Test Scenarios for Main Page functionality
     #And Click on heart icon to go to wish list page
     Then verify product appears in wish list page
 
+
   Scenario:User can open product from Sale and add it to cart
      Given Open GetTop page
     When Click on a product from LATEST PRODUCTS ON SALE section
@@ -58,3 +59,7 @@ Feature: Test Scenarios for Main Page functionality
   Scenario:  User can click on categories under Browse and correct page opens
     Given Open GetTop page
     Then Click on categories under browse and verify correct page opens
+
+  Scenario: No products added to the wishlist shown if no product were added to the list
+    Given Open wishlist page
+    Then verify No products added to the wishlist message
