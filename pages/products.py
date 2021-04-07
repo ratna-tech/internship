@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import Page
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 import time
-
+from selenium.webdriver.support import expected_conditions as EC
 
 class Product(Page):
   ADD_TO_CART= (By.NAME,"add-to-cart")
@@ -11,8 +12,17 @@ class Product(Page):
   PROD_DESC = (By.XPATH,"//li[@id='tab-title-description']//a")
   PROD_TEXT = (By.XPATH,"//a[@class='plain']//h1")
   NEXT_IMAGE = (By.XPATH,"//button[@aria-label='Next']")
- # NEXT_IMAGE = (By.XPATH,"")
   IMAGE_COUNT = (By.XPATH,"//img[@width='600']")
+  SORT_DROPDOWN = (By.CSS_SELECTOR,'select.orderby')
+  PROD_STAR_RATING = (By.XPATH, "//div[@class='price-wrapper']//div")
+  PRODUCT_PAGES = (By.CSS_SELECTOR,'ul.page-numbers>li')
+  ICON_PREVIOUS_PAGE = (By.CSS_SELECTOR,'i.icon-angle-left')
+  ICON_NEXT_PAGE =(By.CSS_SELECTOR,'i.icon-angle-right')
+
+
+  def open_orderby_rating_page(self):
+      self.open_page('shop/?orderby')
+
   def click_on_add_to_cart(self):
       self.click(*self.ADD_TO_CART)
 
@@ -34,5 +44,27 @@ class Product(Page):
       self.wait_for_element_appear(*self.IMAGE_COUNT)
       ele= self.find_elements(*self.IMAGE_COUNT)
       for i in range(len(ele)):
-       self.click(*self.NEXT_IMAGE)
-       time.sleep(1)
+        self.wait_for_element_click(*self.NEXT_IMAGE)
+        time.sleep(1)
+
+  def sort_products_by_average_rating(self):
+      select =Select(self.find_element(*self.SORT_DROPDOWN))
+      select.select_by_value('rating')
+
+
+  def verify_star_rating(self):
+      prod_rating = self.find_element(*self.PROD_STAR_RATING)
+      assert 'Rated' in prod_rating.text, f'Expected prod_rating ,but got nothing'
+
+  def click_through_product_pages(self):
+      pages = self.find_elements(*self.PRODUCT_PAGES)
+      for i in range(len(pages)-1):
+          pages[i].click()
+      Licons = self.wait_for_elements_appear(*self.ICON_PREVIOUS_PAGE)
+      for icon in Licons:
+          icon.click()
+      Ricons = self.wait_for_elements_appear(*self.ICON_NEXT_PAGE)
+      for icon in Ricons:
+          icon.click()
+
+

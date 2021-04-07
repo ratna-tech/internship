@@ -1,17 +1,18 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
 import time
-search_word = 'LATEST PRODUCTS ON SALE'
+
 CATEGORY_LIST=['ACCESSORIES','IPAD','IPHONE','MACBOOK']
 CATEGORY_LIST2=['HOME / ACCESSORIES','HOME / IPAD','HOME / IPHONE','HOME / MACBOOK']
 cart_message='No products in the cart.'
-WISHLIST_MESSAGE= 'No products added to the wishlist'
+
+
 @given('Open GetTop page')
 def open_GetTop(context):
     context.app.main_page.open_main_page()
 
-@then("text 'Latest Products on Sale' is shown")
-def verify_text(context):
+@then("text {search_word} is shown")
+def verify_text(context,search_word):
    context.app.main_page.verify_header_text(search_word)
 
 @then("Verify sale icon is visible")
@@ -129,6 +130,9 @@ def verify_wishlist_removed(context):
 def open_wishlist_page(context):
     context.app.main_page.open_wishlist_page()
 
-@then('verify No products added to the wishlist message')
-def verify_noprod_added_message_wishlistpage(context):
+@then('verify {WISHLIST_MESSAGE} message')
+def verify_noprod_added_message_wishlistpage(context,WISHLIST_MESSAGE):
     context.app.main_page.verify_noprod_added_message_wishlistpage(WISHLIST_MESSAGE)
+
+
+

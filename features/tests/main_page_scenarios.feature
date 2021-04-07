@@ -3,7 +3,7 @@ Feature: Test Scenarios for Main Page functionality
 
   Scenario: "Latest Products on Sale" text is shown
     Given Open GetTop page
-    Then text 'Latest Products on Sale' is shown
+    Then text LATEST PRODUCTS ON SALE is shown
 
   Scenario:  Every product has Sale icon, image, product category, name, price, and star-rating
     Given Open GetTop page
@@ -63,3 +63,4 @@ Feature: Test Scenarios for Main Page functionality
   Scenario: No products added to the wishlist shown if no product were added to the list
     Given Open wishlist page
     Then verify No products added to the wishlist message
+

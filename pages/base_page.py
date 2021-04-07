@@ -12,10 +12,8 @@ class Page:
     def click(self, *locator):
         self.driver.find_element(*locator).click()
 
-
     def find_element(self, *locator):
         return self.driver.find_element(*locator)
-        #return self.driver.wait.until(EC.presence_of_element_located(*locator))
 
     def find_elements(self, *locator):
         return self.driver.find_elements(*locator)
@@ -26,7 +24,6 @@ class Page:
 
     def input_text(self, text: str, *locator):
         e= self.driver.find_element(*locator)
-        #e = self.driver.wait.until((EC.presence_of_element_located(*locator)))
         e.clear()
         e.send_keys(text)
 
@@ -39,6 +36,10 @@ class Page:
 
     def wait_for_element_appear(self, *locator):
         return self.wait.until(EC.presence_of_element_located(locator))
+
+    def wait_for_elements_appear(self, *locator):
+        return self.wait.until(EC.presence_of_all_elements_located(locator))
+
 
     def verify_text(self, expected_text: str, *locator):
         """
@@ -53,13 +54,14 @@ class Page:
     def verify_partial_text(self, expected_text: str, *locator):
         e = self.driver.find_element(*locator)
         actual_text = e.text
+        print(actual_text)
         assert actual_text in expected_text , f"Expected {expected_text} does not match actual {actual_text}"
 
-    #def hover(self,*flocator, *clocator):
-       # item_tab = self.find_element(*self.flocator)
-       # actions = ActionChains(self.driver)
-       # actions.move_to_element(item_tab)
-        #actions.click(self.find_element(*self.clocator))
-       # actions.perform()
-       # from time import sleep
-       # sleep(5)
+    def hover(self, *flocator):
+        item_tab = self.find_element(*self.flocator[0])
+        actions = ActionChains(self.driver)
+        actions.move_to_element(item_tab)
+        actions.click(self.find_element(*self.flocator[1]))
+        actions.perform()
+        from time import sleep
+        sleep(6)
