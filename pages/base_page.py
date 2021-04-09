@@ -19,7 +19,6 @@ class Page:
         return self.driver.find_elements(*locator)
 
     def open_page(self, url=''):
-        #self.driver.get(url)
         self.driver.get(f'{self.base_url}{url}')
 
     def input_text(self, text: str, *locator):

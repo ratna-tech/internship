@@ -17,7 +17,6 @@ Feature: Test Scenarios for Main Page functionality
   Scenario:  User can click on heart icon to add to wishlist
     Given Open GetTop page
     When Hover over and click on heart icon to add to wish list
-    #And Click on heart icon to go to wish list page
     Then verify product appears in wish list page
 
 
@@ -37,7 +36,6 @@ Feature: Test Scenarios for Main Page functionality
   Scenario:User can open and close Quick View by clicking on closing X
     Given Open GetTop page
     When hover over product and click on quick view
-    #And Click on quick view
     Then verify quick view opens
     And verify quick view closes when X is clicked
 

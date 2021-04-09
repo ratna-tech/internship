@@ -43,12 +43,12 @@ def verify_star_rating(context):
 @when('Hover over and click on heart icon to add to wish list')
 def click_on_heart_icon(context):
     context.app.main_page.hover_over_and_click_heart_icon()
-   # context.app.main_page.click_on_heart_icon()
+
 
 @when('Click on heart icon to go to wish list page')
 def go_to_wishlist_page(context):
     context.app.main_page.click_on_heart_icon()
-    #context.app.main_page.hover_over_and_click_heart_icon()
+
 @then('verify product appears in wish list page')
 def verify_prod_inwishlist_page(context):
     context.app.wish_list.verify_product_text()
@@ -62,8 +62,6 @@ def click_on_sale_prod(context):
 
 @when('Click on ADD TO CART')
 def click_on_add_to_cart(context):
-    #global search_word
-   #search_word = context.app.products.prod_text()
     context.app.products.click_on_add_to_cart()
 
 @when('Click on cart icon')

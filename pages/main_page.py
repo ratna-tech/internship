@@ -115,13 +115,7 @@ class Main_Page(Page):
 
   def hover_over(self):
     self.hover(*self.flocator)
-    #item_tab =self.find_element(*self.SALE_PROD)
-    #actions = ActionChains(self.driver)
-    #actions.move_to_element(item_tab)
-    #actions.click(self.find_element(*self.QUICK_VIEW))
-    #actions.perform()
-    #from time import sleep
-    #sleep(1)
+
 
   def hover_over_and_click_heart_icon(self):
     item_tab =self.find_element(*self.SALE_PROD)
