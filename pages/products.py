@@ -18,6 +18,10 @@ class Product(Page):
   PRODUCT_PAGES = (By.CSS_SELECTOR,'ul.page-numbers>li')
   ICON_PREVIOUS_PAGE = (By.CSS_SELECTOR,'i.icon-angle-left')
   ICON_NEXT_PAGE =(By.CSS_SELECTOR,'i.icon-angle-right')
+  QUICK_VIEW_OPEN = (By.CSS_SELECTOR, "a.quick-view ")
+  QUICK_VIEW_CLOSE = (By.CSS_SELECTOR, "button.mfp-close")
+  HOVER_OVER= (By.CSS_SELECTOR,"div.image-fade_in_back")
+  flocator= [HOVER_OVER,QUICK_VIEW_OPEN]
 
 
   def open_orderby_rating_page(self):
@@ -66,5 +70,30 @@ class Product(Page):
       Ricons = self.wait_for_elements_appear(*self.ICON_NEXT_PAGE)
       for icon in Ricons:
           icon.click()
+
+  def verify_quick_viewopen_close(self):
+      self.hover(*self.HOVER_OVER)
+      self.click(*self.QUICK_VIEW_CLOSE)
+
+  def verify_quick_view_add_to_cart(self):
+      self.hover(*self.HOVER_OVER)
+      self.wait_for_element_click(*self.ADD_TO_CART)
+
+  def click_through_product_pages_by_clicking_12(self):
+      pages = self.find_elements(*self.PRODUCT_PAGES)
+      for i in range(len(pages)-1):
+          pages[i].click()
+
+  def click_through_product_pages_using_angle(self):
+      pages = self.find_elements(*self.PRODUCT_PAGES)
+      Licons = self.wait_for_elements_appear(*self.ICON_PREVIOUS_PAGE)
+      for icon in Licons:
+       icon.click()
+      Ricons = self.wait_for_elements_appear(*self.ICON_NEXT_PAGE)
+      for icon in Ricons:
+           icon.click()
+
+
+
 
 
